@@ -1,0 +1,1221 @@
+/*
+ * Author       : skmsubhani2501
+ * Generated on : 17-Nov-2023 16:36:10
+ * Version      : 1.0
+ */
+ application "Student Management Application"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Calcutta"
+ 	time format = "24-hr"
+ 	section Student_Registrations
+	{
+		displayname= "Student Registrations"
+		icon = "education-pencil-47"
+		form Student_Registration_Form
+		{
+			displayname = "Student Registration Form"
+			success message = "Student Registration Added Successfully"
+			field alignment = left
+			Department
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Student_Id
+			(
+    			type = text
+				displayname = "Student Id"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Student_Name
+			(
+    			type = name
+				displayname = "Student Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+	     			 visibility = false
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Date_of_Birth
+			(
+    			type = date
+				displayname = " Date of Birth"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Gender
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Male","Female"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Student_Email
+			(
+    			type = email
+				displayname = "Student Email"
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Phone_Number
+			(
+    			type = phonenumber
+				displayname = "Phone Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Department1
+			(
+    			type = text
+				displayname = "Department"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Parent_Information
+			(
+    			type = text
+				displayname = "Parent Information"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Emergancy_Contact
+			(
+    			type = phonenumber
+				displayname = "Emergancy Contact "
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Nationality
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Student_Subjects
+			(
+				type = grid
+				displayname = "Student Subjects"
+				values  = subjects.ID
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "education-pencil-47"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list All_Student_Registrations
+		{
+			displayName = "All Student Registrations"
+			show all rows from Student_Registration_Form    
+			(
+				Student_Id as "Student Id"
+				Student_Name  as "Student Name"
+	 			(
+	      			displayformat = [first_name+""+prefix+""+last_name+""+suffix]
+	 			)
+				Date_of_Birth as " Date of Birth"
+				Gender
+				Phone_Number as "Phone Number"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+				Student_Email as "Student Email"
+				Address 
+	 			(
+	      			displayformat = [address_line_1+""+address_line_2+""+district_city+""+state_province+""+postal_Code+""+country]
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Parent_Information as "Parent Information"
+				Emergancy_Contact as "Emergancy Contact "
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+				Nationality
+				Department1 as "Department"
+			)
+			options
+			(
+				icon = "travel-world"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+						layout type = -1
+						fields
+						(
+							Student_Id as "Student Id"
+							Student_Name as "Student Name"
+							Date_of_Birth as " Date of Birth"
+							Gender
+							Phone_Number as "Phone Number"
+							Student_Email as "Student Email"
+							Address
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+					record
+					(
+						Edit   	   
+						Duplicate   	   
+						Delete   	   
+    				)
+    			)
+    			action
+    			(
+					on click
+					(
+						View Record   	   
+    				)
+					on right click
+					(
+						Edit   	   
+						Delete   	   
+						Duplicate   	   
+						View Record   	   
+    				)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+						layout type = -2
+						fields
+						(
+							Student_Id as "Student Id"
+							Student_Name as "Student Name"
+							Date_of_Birth as " Date of Birth"
+							Gender
+							Phone_Number as "Phone Number"
+							Student_Email as "Student Email"
+							Address
+							Parent_Information as "Parent Information"
+							Emergancy_Contact as "Emergancy Contact "
+							Nationality
+							Department1 as "Department"
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+	section Subjects
+	{
+		icon = "education-microscope"
+		form subjects
+		{
+			success message = "Subject Added Successfully"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Subjects
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Telugu","English","Hindi","Maths","Science","Social"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Marks
+			(
+				type = decimal
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "education-microscope"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list All_Subjects
+		{
+			displayName = "All Subjects"
+			show all rows from subjects    
+			(
+				Subjects
+				Marks
+			)
+			options
+			(
+				icon = "travel-world"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+						layout type = -1
+						fields
+						(
+							Subjects
+							Marks
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+					record
+					(
+						Edit   	   
+						Duplicate   	   
+						Delete   	   
+    				)
+    			)
+    			action
+    			(
+					on click
+					(
+						View Record   	   
+    				)
+					on right click
+					(
+						Edit   	   
+						Delete   	   
+						Duplicate   	   
+						View Record   	   
+    				)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+						layout type = -2
+						fields
+						(
+							Subjects
+							Marks
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+	section Marks_Sheet
+	{
+		displayname= "Marks Sheet"
+		icon = "furniture-toilet-paper"
+		form Marks_Sheet
+		{
+			displayname = "Marks Sheet"
+			success message = "Data Added Successfully!"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Student_Name
+			(
+				type = picklist	
+				displayname = "Student Name"
+				values  = Student_Registration_Form.ID
+    			displayformat = [" " + Student_Name.prefix + " " + Student_Name.first_name + " " + Student_Name.last_name + " " + Student_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Student_Id
+			(
+    			type = text
+				displayname = "Student Id"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Subjects
+			(
+				type = grid
+				values  = subjects.ID
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+			Section1
+			(
+				type = section
+				displayname = "Section"
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+			Total_marks
+			(
+				type = number
+				displayname = "Total marks"
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "furniture-toilet-paper"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list Marks_Sheet_Report
+		{
+			displayName = "Marks Sheet Report"
+			show all rows from Marks_Sheet    
+			(
+				Total_marks as "Total marks"
+				Student_Id as "Student Id"
+				Student_Name as "Student Name"
+			)
+			sort by
+			(
+				Total_marks ascending
+			)
+			options
+			(
+				icon = "business-laptop-71"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+						layout type = -1
+						fields
+						(
+							Total_marks as "Total marks"
+							Student_Id as "Student Id"
+							Student_Name as "Student Name"
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+					record
+					(
+						Edit   	   
+						Duplicate   	   
+						Delete   	   
+    				)
+    			)
+    			action
+    			(
+					on click
+					(
+						View Record   	   
+    				)
+					on right click
+					(
+						Edit   	   
+						Delete   	   
+						Duplicate   	   
+						View Record   	   
+    				)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+						layout type = -2
+						fields
+						(
+							Total_marks as "Total marks"
+							Student_Id as "Student Id"
+							Student_Name as "Student Name"
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+	section Courses
+	{
+		icon = "education-hat"
+		form Course
+		{
+			success message = "Course Added Successfully"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Academic_Year
+			(
+				type = picklist
+				displayname = "Academic Year"
+				maxchar = 100
+				values = {"2019-2020","2020-2021","2021-2022","2022-2023"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Course_Name
+			(
+    			type = text
+				displayname = "Course Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "media-1-button-next"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list All_Courses
+		{
+			displayName = "All Courses"
+			show all rows from Course    
+			(
+				Academic_Year as "Academic Year"
+				Course_Name as "Course Name"
+			)
+			options
+			(
+				icon = "travel-world"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+						layout type = -1
+						fields
+						(
+							Academic_Year as "Academic Year"
+							Course_Name as "Course Name"
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+					record
+					(
+						Edit   	   
+						Duplicate   	   
+						Delete   	   
+    				)
+    			)
+    			action
+    			(
+					on click
+					(
+						View Record   	   
+    				)
+					on right click
+					(
+						Edit   	   
+						Delete   	   
+						Duplicate   	   
+						View Record   	   
+    				)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+						layout type = -2
+						fields
+						(
+							Academic_Year as "Academic Year"
+							Course_Name as "Course Name"
+						)
+					)
+				)
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+	section Student_Information
+	{
+		displayname= "Student Information"
+		icon = "travel-info"
+		page Student_Information
+		{
+			displayname = "Student Information"
+			icon = "travel-info"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width=\"100%\"\n   \t>\n\t<dsp id='html_snippet' elementName=\"HTML Snippet\"\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet()\ncontent\n&lt;%{\n\tfet = Student_Registration_Form[Student_Email = zoho.loginuserid];\n\t%&gt;\n&lt;html&gt;\n&lt;head&gt;\n&lt;style&gt;\nh1 {text-align: center;}\n&lt;\/style&gt;\n&lt;\/head&gt;\n&lt;body&gt;\n&lt;h1&gt;Student_Name | &lt;%=fet.Student_Name%&gt;&lt;\/h1&gt;\n&lt;h1&gt;Department | &lt;%=fet.Department1%&gt;&lt;\/h1&gt;\n&lt;h1&gt;Student_Id | &lt;%=fet.Student_Id%&gt;&lt;\/h1&gt;\n&lt;\/body&gt;\n&lt;\/html&gt;\n&lt;%\n\n}%&gt;]]>\n<\/dsp>\n<\/column>\n<\/row><row>\n\t<column\n   \t\t width=\"50%\"\n   \t>\n\t<panel elementName=\"Panel\"\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenReport'\n\t\tparameters = '1500*1500' \n\t\tcomponentLinkName = 'Marks_Sheet_Report'\n\t\ttarget = 'same-window'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\n\tcolor = '#FFFFFF'\n\tbgColor = '#0ABB51'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'users-delete-30'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n    action = 'OpenReport'\n\t\tparameters = '200*200' \n\t\tcomponentLinkName = 'Marks_Sheet_Report'\n\t\ttarget = 'same-window'\n\n\tmarginTop = '3px'\n\tcolor = '#0ABB51'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Text'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\t  \n\t  value = '2019-2020'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column><column\n   \t\t width=\"50%\"\n   \t>\n\t<panel elementName=\"Panel 1\"\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n    action = 'OpenReport'\n\t\tparameters = '1500*1500' \n\t\tcomponentLinkName = 'Marks_Sheet_Report'\n\t\ttarget = 'same-window'\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n    action = 'OpenReport'\n\t\tparameters = '1500*1500' \n\t\tcomponentLinkName = 'Marks_Sheet_Report'\n\t\ttarget = 'same-window'\n\t\thAlign = 'center'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\n\tcolor = '#FFFFFF'\n\tbgColor = '#0ABB51'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'users-2-accessibility'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'outline'\n\/>\n<\/pc>\n<\/pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginTop = '3px'\n\tcolor = '#0ABB51'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Text'\n\tbgColor = 'rgba(0, 0, 0, 0)'\n\n\n\n\t  \n\t  value = '2020-2021'\n>\n<\/text>\n\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column>\n<\/row><row>\n\t<column\n   \t\t width=\"100%\"\n   \t>\n\t<panel elementName=\"Panel 2\"\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#FFFFFF'\n\n\t\twidth = '100%'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n\t\tvAlign = 'middle'\n>\n\t<button \n\t\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\n\tcolor = '#FFFFFF'\n\tsize = '16px'\n\ttext ='Exit'\n\t\ttype = 'flat'\n\t\tbgColor = '#0072F4'\n\t\tcornerRadius = '3px' \n\/>\n<\/pc>\n<\/pr>\n<\/pc>\n<\/pr>\n<\/panel>\n<\/column>\n<\/row>\n<\/layout>\n<\/zml>"
+		}
+	}
+
+
+
+
+
+
+		workflow
+		{
+		form
+		{
+			id_generation as "id generation"
+			{
+				type =  form
+				form = Student_Registration_Form
+				record event = on add or edit
+
+				on user input of Student_Name
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(Student_Name != null)
+										{
+											var1 = input.Student_Name.subString(0,3).toUpperCase();
+											t = Student_Registration_Form[ID != null];
+											if(t.count() == 0)
+											{
+												input.Student_Id = var1 + "-" + 1;
+											}
+											else if(t.count() > 0)
+											{
+												recentId = Student_Registration_Form[ID != null].Student_Id sort by Added_Time desc;
+												lastId = recentId.getSuffix("-");
+												temp = lastId.tolong();
+												finalId = temp + 1;
+												input.Student_Id = var1 + "-" + finalId;
+											}
+										}
+						)
+					}
+				}
+
+			}
+			fetch_the_marks as "fetch the marks"
+			{
+				type =  form
+				form = Marks_Sheet
+				record event = on add or edit
+					status = inactive
+
+				on user input of Student_Id
+				{
+				}
+
+			}
+			test as "test"
+			{
+				type =  form
+				form = Marks_Sheet
+				record event = on add or edit
+
+				on user input of Student_Id
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// recordata = subjects [ Student_Id == input.Student_Id];
+										// if ( Student_Id==null) 
+										// {
+										// 	input.SubForm.clear();
+										// 	for each marks in Marks_Sheet
+										//     {
+										// 		row1 = newdata.SubForm();
+										// 		row1.Telugu=SubForm.Telugu;
+										// 		row1.Hindi=SubForm.Hindi;
+										// 		row1.english=SubForm.English;
+										// 		row1.Mathematics=SubForm.Mathematics;
+										// 		row1.Science=SubForm.Science;
+										// 		row1.Social=SubForm.Social;
+										// 		rowcollection=Collection();
+										// 		rowcollection.insert(row1)
+										// 		input.SubForm.insert(rowcollection);
+										//     } 
+										// }
+										// else 
+										// {
+										// 	input.SubForm.clear();
+										// }
+						)
+					}
+				}
+
+			}
+			auto_Papulate_the_student as "auto Papulate the student id"
+			{
+				type =  form
+				form = Marks_Sheet
+				record event = on add or edit
+
+				on user input of Student_Name
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// fet = Student_Registration_Form[ID == input.Student_Name];
+										// input.Student_Id = fet.Student_Id;
+										//disable Student_Id;
+										obj = Student_Registration_Form[ID == input.Student_Name];
+										input.Student_Id = obj.Student_Id;
+										if(Student_Name.isEmpty() == false)
+										{
+											show Subjects;
+											clear Subjects;
+											rec = Marks_Sheet.Subjects();
+											for each  rec1 in obj.Student_Subjects
+											{
+												rec.Subjects=rec1.Subjects;
+												rec.Marks=rec1.Marks;
+												itmcol = Collection();
+												itmcol.insert(rec);
+												input.Subjects.insert(itmcol);
+											}
+										}
+										//obj1 = Student_Registration_Form[ID == rec.Product_Name];
+						)
+					}
+					actions 
+					{
+						custom deluge script
+						(
+											fet = Marks_Sheet[Student_Id == input.Student_Id];
+										input.Total_marks = fet.Total_marks;
+										disable Total_marks;
+										info input.Student_Id;
+						)
+					}
+				}
+
+			}
+			insert_rows_to_subform as "insert rows to subform"
+			{
+				type =  form
+				form = Marks_Sheet
+				record event = on add or edit
+					status = inactive
+
+				on user input of Student_Name
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// fetvendata = subjects[ID == input.Student_Name];
+										// // 	 Project_ID = fetvendata.Order_ID;
+										// // 	 Project_Name = fetvendata.Order_Name.Order_Description;
+										// // 	 input.Vendor_Name = fetvendata.Vendor_Name.Vendor_Name;
+										// // 	 input.Vendor_Email = fetvendata.Vendor_Email;
+										// // 	 input.Product_Name = fetvendata.Product_Name;
+										// // 	 input.Order_Name = fetvendata.Order_Name.Order_Description;
+										// // 	 input.Order_ID = fetvendata.Order_ID;
+										// if(Student_Name.isEmpty() == false)
+										// {
+										// 	show Subjects;
+										// 	clear Subjects;
+										// 	rec = Marks_Sheet.Subjects();
+										// 	for each rec in fetvendata.Subjects
+										//     {
+										// 	//	rec1.S_no=rec1.S_No;
+										//     } 
+										// }
+						)
+					}
+				}
+
+			}
+			insert_rows_to_subform1 as "insert rows to subform"
+			{
+				type =  form
+				form = Marks_Sheet
+				record event = on add or edit
+					status = inactive
+
+				on load
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// input.Subjects.clear();
+										// iterate = input.Number_of_Rows;
+										// itratationstring = "".leftpad(iterate);
+										// i = 1;
+										// for each  dd in itratationstring
+										// {
+										// 	info dd;
+										// 	info i;
+										// 	tt = Marks_Sheet.Subjects();
+										// 	//tt.s.no=i;
+										// 	input.Subjects.insert(tt);
+										// 	i = i + 1;
+										// }
+										// var = subjects[ID != 0];
+										// for each  entry in var
+										// {
+										// 	fetch_subject = entry.Subjects;
+										// 	row_collection = Collection();
+										// 	for each  data in fetch_subject
+										// 	{
+										// 		row1 = Marks_Sheet.Subjects();
+										// 		roww1 = data;
+										// 	}
+										// }
+										// // Create a variable to store fetched records from the form1 
+										// fetch_records = form1[ID != 0]; 
+										// for each entry in fetch_records 
+										//  { 
+										//  fetch_subform1 = entry.subform1; 
+										//  //Create a collection to store the data of each record in subform1 
+										//  rows_collection = collection(); 
+										//  for each data in fetch_subform1 
+										//       { 
+										//         row1 = form2.subform2(); 
+										//         row1.Product_Name = data.Product; 
+										//         row1.Qty = data.Quantity; 
+										//         rows_collection.insert(row1); 
+										//      }  
+										// //Use Add Records task to insert the fetched subform1 values stored in the collection - row_collection in the subform2 in form2 
+										//  response = insert into form2 
+										//  [ 
+										//     subform2 = rows_collection 
+										//  ]; 
+										//  }
+						)
+					}
+				}
+
+			}
+			calculate_total_marks as "calculate total marks"
+			{
+				type =  form
+				form = Marks_Sheet
+				record event = on add or edit
+
+				on user input of Subjects.Marks
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											input.Total_marks = input.Subjects.sum(Marks);
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+	customize
+	{
+		
+		layout = "tab"
+		color = "black"
+		base theme = "professional"
+		new theme = 1
+		icons = true
+		icons style = outline
+		font = "lato"
+		color options
+    	{
+        color = "1"
+    	}
+    	logo
+    	{
+        	preference = "none"
+        	placement = "left"
+    	}
+	}
+
+
+	phone
+	{
+		customize
+		{
+        	layout = slidingpane
+		 	icons style = outline
+        	font = "default"
+            style = "3"
+        	color options
+        	{
+             	color = rose
+         	}
+         	logo
+         	{
+             	preference = "none"
+         	}
+		}
+	}
+	tablet
+	{
+		customize
+		{
+        	layout = slidingpane
+		 	icons style = outline
+        	font = "default"
+            style = "3"
+        	color options
+        	{
+             	color = rose
+         	}
+         	logo
+         	{
+             	preference = "none"
+         	}
+		}
+	}
+	
+}
